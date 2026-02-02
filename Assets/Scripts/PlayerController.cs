@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRb;
     public float playerSpeed;
 
+    private GameObject focalPoint;
     public InputActionAsset inputActions;
     private InputAction moveAction;
 
@@ -21,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         playerRb = GetComponent<Rigidbody>();
+        focalPoint = GameObject.Find("FocalPoint");
         moveAction = InputSystem.actions.FindAction("Move");
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -35,6 +37,6 @@ public class PlayerController : MonoBehaviour
         Vector2 moveInputs = moveAction.ReadValue<Vector2>();
         float forwardInput = moveInputs.y;
 
-        playerRb.AddForce(Vector3.forward * playerSpeed * forwardInput);
+        playerRb.AddForce(focalPoint.transform.forward * playerSpeed * forwardInput);
     }
 }
